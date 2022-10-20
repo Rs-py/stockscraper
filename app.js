@@ -81,6 +81,7 @@ async function yahoo(){
                 var heading = await driver.findElement(By.xpath(x)).getText();
                 volumelist.push(heading);
                 }
+            driver.quit();
             console.log("Done");
             console.log(symlist);
             console.log(namelist);
