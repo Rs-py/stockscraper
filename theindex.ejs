@@ -1,0 +1,46 @@
+<section>
+    <link rel="stylesheet" href="/css/the.css">
+    <h1>Top 250 Stocks</h1>
+      <div class="tbl-header">
+        <table cellpadding="0" cellspacing="0" border="0">
+        <thead>
+          <tr>
+            <th>Symbol</th>
+            <th>Name</th>
+            <th>Price</th>
+            <th>Change</th>
+            <th>Volume</th>
+          </tr>
+        </thead>
+      </table>
+    </div>
+    <div class="tbl-content">
+      <table cellpadding="0" cellspacing="0" border="0">
+        <tbody>
+          <tr>
+  <div id= "table.tbl-content">
+    <table>
+        <tr>
+        <% for (var i = 0; i < symlist.length; i++) { %>
+         <tr>
+           <td><%= symlist[i] %></td>
+           <td><%= namelist[i] %></td>
+           <td><%= pricelist[i] %></td>
+           <td><%= changelist[i] %></td>
+           <td><%= volumelist[i] %></td>
+         </tr>    
+        <% } %>
+     </table>
+  </div>
+  </tr>
+        </tbody>
+      </table>
+    </div>
+    <script>
+        
+$(window).on("load resize ", function() {
+  var scrollWidth = $('.tbl-content').width() - $('.tbl-content table').width();
+  $('.tbl-header').css({'padding-right':scrollWidth});
+}).resize();
+    </script>
+  </section>
