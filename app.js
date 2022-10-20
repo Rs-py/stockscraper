@@ -12,7 +12,9 @@ app.use('/js', express.static(__dirname + 'public/js'))
 app.set('views', './')
 app.set('view engine', 'ejs')
 
+// Display Page
 app.get('', (req, res) => {
+// Run Selenium to Scrape Data
 async function yahoo(){    
     webdriver = require("selenium-webdriver");
 
@@ -26,22 +28,18 @@ async function yahoo(){
         require("chromedriver");
         until = webdriver.until
         
-            //let data = []
-            //let selectorarr = []
             let symbols = []
             let names = []
             let prices = []
             let changes = []
             let volumes = []
             for (const x of Array(216).keys()) {
-                //console.log(selector = "/html/body/div[1]/div/div/div[1]/div/div[2]/div/div/div[6]/div/div/section/div/div[2]/div[1]/table/tbody/tr["+x+"]");
                 sym = "/html/body/div[1]/div/div/div[1]/div/div[2]/div/div/div[6]/div/div/section/div/div[2]/div[1]/table/tbody/tr["+x+"]/td[1]/a";
                 n = "/html/body/div[1]/div/div/div[1]/div/div[2]/div/div/div[6]/div/div/section/div/div[2]/div[1]/table/tbody/tr["+x+"]/td[2]"
                 p = "/html/body/div[1]/div/div/div[1]/div/div[2]/div/div/div[6]/div/div/section/div/div[2]/div[1]/table/tbody/tr["+x+"]/td[3]/fin-streamer";
                 c = "/html/body/div[1]/div/div/div[1]/div/div[2]/div/div/div[6]/div/div/section/div/div[2]/div[1]/table/tbody/tr["+x+"]/td[4]/fin-streamer/span"
                 v = "/html/body/div[1]/div/div/div[1]/div/div[2]/div/div/div[6]/div/div/section/div/div[2]/div[1]/table/tbody/tr["+x+"]/td[6]/fin-streamer";
                 
-                //selectorarr.push(selector);
                 symbols.push(sym);
                 names.push(n);
                 prices.push(p);
@@ -49,13 +47,11 @@ async function yahoo(){
                 volumes.push(v);
             }
 
-            //selectorarr.splice(0,1);
             symbols.splice(0,1);
             names.splice(0,1);
             prices.splice(0,1);
             changes.splice(0,1);
             volumes.splice(0,1);
-
 
             symlist = [];
             namelist = [];
@@ -63,7 +59,6 @@ async function yahoo(){
             changelist = [];
             volumelist = [];
 
-            //console.log(selectorarr);  
             await driver.get("https://finance.yahoo.com/most-active/?offset=0&count=250");
             for (x of symbols){
                 driver.wait(until.elementLocated(By.xpath(x)), 1000);
@@ -92,16 +87,8 @@ async function yahoo(){
             console.log(pricelist);
             console.log(changelist);
             console.log(volumelist);
-            //var everything = symlist.concat(pricelist, volumelist);
-            //console.log(everything);
             res.render('theindex', {"symlist":symlist, "namelist":namelist, "pricelist":pricelist, "changelist":changelist, "volumelist":volumelist})
         }
-        //wiki()
     yahoo();
-    //res.render('theindex', {"symlist":symlist, "pricelist":pricelist, "volumelist":volumelist})
 })
-
-//  Listen on port 3000
 app.listen(port, () => console.info(`Listening on port ${port}`))
-
-//find how to convert arrays into one list.
