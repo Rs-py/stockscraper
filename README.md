@@ -1,5 +1,5 @@
 <h1> Stock Scraper </h1>
-This project scrapes information for the top traded 250 stocks on US exchanges each day and displays them in a modern UI. Uses js, selenium, and node.<br>
+This project scrapes information for the top traded 250 stocks on US exchanges each day and displays them in a modern UI using js, selenium, and node.<br>
 <h2> To run this project:</h2>
 1. Download all files and then run the command in the project directory:<br>
 <code> npm i </code><br><br>
