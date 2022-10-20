@@ -10,4 +10,4 @@ This project scrapes information for the top traded 250 stocks on US exchanges e
 4. Wait for selenium to scrape data and render the page and results!
 
 <h2> Contributions! </h2>
-Feel free to add any features to this project or creating new html/css combinations!
+Feel free to add any features to this project or create any new html/css styles!
