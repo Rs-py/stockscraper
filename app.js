@@ -2,6 +2,8 @@
 const express = require('express')
 const app = express()
 const port = 3000
+const aboutContent = "Hac habitasse platea dictumst vestibulum rhoncus est pellentesque. Dictumst vestibulum rhoncus est pellentesque elit ullamcorper. Non diam phasellus vestibulum lorem sed. Platea dictumst quisque sagittis purus sit. Egestas sed sed risus pretium quam vulputate dignissim suspendisse. Mauris in aliquam sem fringilla. Semper risus in hendrerit gravida rutrum quisque non tellus orci. Amet massa vitae tortor condimentum lacinia quis vel eros. Enim ut tellus elementum sagittis vitae. Mauris ultrices eros in cursus turpis massa tincidunt dui.";
+const contactContent = "Scelerisque eleifend donec pretium vulputate sapien. Rhoncus urna neque viverra justo nec ultrices. Arcu dui vivamus arcu felis bibendum. Consectetur adipiscing elit duis tristique. Risus viverra adipiscing at in tellus integer feugiat. Sapien nec sagittis aliquam malesuada bibendum arcu vitae. Consequat interdum varius sit amet mattis. Iaculis nunc sed augue lacus. Interdum posuere lorem ipsum dolor sit amet consectetur adipiscing elit. Pulvinar elementum integer enim neque. Ultrices gravida dictum fusce ut placerat orci nulla. Mauris in aliquam sem fringilla ut morbi tincidunt. Tortor posuere ac ut consequat semper viverra nam libero.";
 
 // Static Files
 app.use(express.static('public'))
@@ -9,14 +11,13 @@ app.use('/css', express.static(__dirname + 'public/css'))
 app.use('/js', express.static(__dirname + 'public/js'))
 
 // Set Views
-app.set('views', './')
 app.set('view engine', 'ejs')
 
 // Display Page
 app.get('', (req, res) => {
 // Run Selenium to Scrape Data
 async function yahoo(){    
-    webdriver = require("selenium-webdriver");
+    let webdriver = require("selenium-webdriver");
 
     require("chromedriver");
 
@@ -88,8 +89,17 @@ async function yahoo(){
             console.log(pricelist);
             console.log(changelist);
             console.log(volumelist);
-            res.render('theindex', {"symlist":symlist, "namelist":namelist, "pricelist":pricelist, "changelist":changelist, "volumelist":volumelist})
+            res.render('index', {"symlist":symlist, "namelist":namelist, "pricelist":pricelist, "changelist":changelist, "volumelist":volumelist})
         }
     yahoo();
 })
+
+app.get("/about", function (req, res) {
+    res.render("about", {contentAbout: aboutContent});
+});
+
+app.get("/contact", function (req, res) {
+    res.render("contact", {contentContact: contactContent});
+});
+
 app.listen(port, () => console.info(`Listening on port ${port}`))
