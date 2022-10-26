@@ -17,7 +17,7 @@ app.set('view engine', 'ejs')
 app.get('', (req, res) => {
 // Run Selenium to Scrape Data
 async function yahoo(){    
-    let webdriver = require("selenium-webdriver");
+    webdriver = require("selenium-webdriver");
 
     require("chromedriver");
 
@@ -34,7 +34,12 @@ async function yahoo(){
             let prices = []
             let changes = []
             let volumes = []
-            for (const x of Array(216).keys()) {
+
+            await driver.get("https://finance.yahoo.com/most-active/?offset=0&count=250");
+            var xpathcount =  await driver.findElements(By.xpath("/html/body/div[1]/div/div/div[1]/div/div[2]/div/div/div[6]/div/div/section/div/div[2]/div[1]/table/tbody/tr/td[1]/a"));
+            var numberofrows = Number(xpathcount.length);
+            console.log(numberofrows);
+            for (const x of Array(numberofrows).keys()) {
                 sym = "/html/body/div[1]/div/div/div[1]/div/div[2]/div/div/div[6]/div/div/section/div/div[2]/div[1]/table/tbody/tr["+x+"]/td[1]/a";
                 n = "/html/body/div[1]/div/div/div[1]/div/div[2]/div/div/div[6]/div/div/section/div/div[2]/div[1]/table/tbody/tr["+x+"]/td[2]"
                 p = "/html/body/div[1]/div/div/div[1]/div/div[2]/div/div/div[6]/div/div/section/div/div[2]/div[1]/table/tbody/tr["+x+"]/td[3]/fin-streamer";
@@ -59,8 +64,7 @@ async function yahoo(){
             pricelist = [];
             changelist = [];
             volumelist = [];
-
-            await driver.get("https://finance.yahoo.com/most-active/?offset=0&count=250");
+            
             for (x of symbols){
                 driver.wait(until.elementLocated(By.xpath(x)), 1000);
                 var heading = await driver.findElement(By.xpath(x)).getText();
@@ -89,7 +93,7 @@ async function yahoo(){
             console.log(pricelist);
             console.log(changelist);
             console.log(volumelist);
-            res.render('index', {"symlist":symlist, "namelist":namelist, "pricelist":pricelist, "changelist":changelist, "volumelist":volumelist})
+            res.render('theindex', {"symlist":symlist, "namelist":namelist, "pricelist":pricelist, "changelist":changelist, "volumelist":volumelist})
         }
     yahoo();
 })
